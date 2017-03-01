@@ -31,7 +31,13 @@ layout: null
         <guid isPermaLink="true">{{ ep.url | prepend: site.baseurl | prepend: site.url }}</guid>
         <pubDate>{{ ep.published_date | date_to_rfc822 }}</pubDate>
         <itunes:subtitle>{{ ep.tagline }}</itunes:subtitle>
-        <itunes:summary>{{ ep.summary }}</itunes:summary>
+        <itunes:summary>
+          {{ ep.summary }}
+          Avec la participation de :
+          {% for p in ep.hosts %}
+            {{ p[1] }}{% if forloop.last == false %}, {% endif %}
+          {% endfor %}
+        </itunes:summary>
         <itunes:duration>{{ ep.duration }}</itunes:duration>
         <itunes:author>{{ site.author | xml_escape }}</itunes:author>
         <itunes:keywords>{% for tag in ep.tags %}{{ tag | xml_escape }}{% if forloop.last == false %}, {% endif %}{% endfor %}</itunes:keywords>
